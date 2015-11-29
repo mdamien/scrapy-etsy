@@ -7,6 +7,11 @@ from pprint import pprint as pp
 def clean(url):
     return url.split('?')[0]
 
+def e0(x):
+    e = x.extract()
+    if len(e) > 0:
+        return e[0]
+
 class EtsySpider(scrapy.Spider):
     name = 'etsy'
     allowed_domains = ['etsy.com']
@@ -19,23 +24,14 @@ class EtsySpider(scrapy.Spider):
     def parse(self, response):
         for url in response.css('a::attr("href")').extract():
             if 'etsy.com' in url and not url_is_foreign(url):
-                yield scrapy.Request(response.urljoin(clean(url)), self.parse)
+                priority = 1 if 'listing/' in response.url else 0
+                yield scrapy.Request(response.urljoin(clean(url)), self.parse, priority=priority)
         if 'listing/' in response.url:
             for it in self.parse_listing(response):
                 yield it
-
-    def parse_page(self, response):
-    	page = response.meta.get('page',1)
-    	yield scrapy.Request(URL.format(page=page+1), meta={'page': page+1}, callback=self.parse)
-        for i in response.css('.block-grid-item'):
-        	item = {}
-        	item['url'] = i.css('a::attr("href")').extract()[0]
-        	item['img'] = i.css('img::attr("src")').extract()[0]
-        	item['name'] = i.css('.card-title::text').extract()[0].strip()
-        	item['shop'] = i.css('.card-shop-name::text').extract()[0].strip()
-        	item['price'] = i.css('.card-price::text').extract()[0].strip()
-        	yield item
-            #yield scrapy.Request(response.urljoin(url), self.parse_listing)
+        if 'shop/' in response.url:
+            #TODO # of sales for the shop
+            pass
 
     def parse_listing(self, response):
     	mde = MicrodataExtractor()
@@ -47,6 +43,15 @@ class EtsySpider(scrapy.Spider):
             it.update(prod['offerDetails']['properties'])
             it['name'] = prod['name']
             it['url'] = response.url
+            it['properties'] = [x for x in response.css('#item-overview .properties li::text').extract() \
+                if all(y not in x.lower() for y in ['materials','feedback', 'favorited', 'ships'])]
+            it['materials'] = e0(response.css('#overview-materials::text'))
+            it['origin'] = e0(response.css('.origin::text'))
+            it['imgs'] = response.css('#image-carousel img::attr("src")').extract()
+            it['description'] = e0(response.css("#description-text"))
+            it['tags'] = response.css('#listing-tag-list li a::text').extract()
+            it['fineprints'] = [x.strip() for x in response.css('#fineprint li::text').extract()[:4]]
+            it['rating'] = response.css('.review-rating meta::attr("content")').extract()
             #it['html'] = response.body
             yield it
 
