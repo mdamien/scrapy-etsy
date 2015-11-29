@@ -1,13 +1,9 @@
 import json
 from collections import Counter
 
-DATA = []
-for i, line in enumerate(open('data.jl')):
-    try:
-        DATA.append(json.loads(line))
-    except:
-        print('fail at line', i)
+from post import load
 
+DATA = load(small=False)
 
 def attrget(item, key):
     keys = key.split('.')
@@ -15,18 +11,20 @@ def attrget(item, key):
         item = item.get(key,'')
     return item
 
-def stats(key, attrget=attrget, limit=10):
-    arr = DATA
+def stats(key=None, attrget=attrget, limit=10, inception=False, data=None):
+    data = data if data else DATA
     def flat(arr):
         for x in arr:
             if type(x) == type([]):
                 yield from flat(x)
-            else:
+            elif type(x) == str:
                 yield x.strip()
+            else:
+                yield x
 
-    c = Counter(flat([attrget(el,key) for el in arr]))
+    c = Counter(flat([attrget(el,key) for el in data]))
 
-    count_all = len(arr)
+    count_all = len(data)
     count_distinct = len(c)
     print()
     print(key,"   -   ",count_all,"values,",count_distinct,"distincts")
@@ -37,9 +35,15 @@ def stats(key, attrget=attrget, limit=10):
         print("{:.1f}% ({}) {}".format(p,n,el))
     print()
 
+    if inception:
+        stats(key="---> "+key+'-ception', attrget=lambda i, k: i, data=c.values())
+
 stats('shop.title')
 stats('price')
 stats('availability')
 stats('name')
 stats('url')
-stats('id', lambda i,k: i['url'].split('listing/')[1].split('/')[0])
+stats('id', inception=True)
+stats('views')
+stats('rating_score')
+stats('rating_count')

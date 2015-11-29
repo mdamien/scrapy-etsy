@@ -19,6 +19,7 @@ class EtsySpider(scrapy.Spider):
     custom_settings = {
         'HTTPCACHE_ENABLED': True,
         'HTTPCACHE_DIR': '/tmp/httpcache',
+        'HTTPCACHE_GZIP': True,
     }
 
     def parse(self, response):
