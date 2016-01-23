@@ -1,1 +1,6 @@
 *.pyc
+venv/
+notes
+data/
+data.jl
+proto/

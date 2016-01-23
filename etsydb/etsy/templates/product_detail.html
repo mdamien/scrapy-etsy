@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="shop">
+     <h2 class="shop-name">{{ product.shop }}</h2>
+  </div>
+  <div class="main-card">
+    <div class="col-left">
+      <div class="gallery">
+      	{% for img in product.imgs %}
+        	<img src="{{ img }}" />
+        {% endfor %}
+      </div>
+      <ul class="tabs">
+          <li class="active">Item Details</li><li>Shop Policies</li>
+      </ul>
+      <div class="description">
+        {{product.description|safe}}          
+      </div>
+    </div>
+    <div class="col-right">
+      <div class="basic-infos">
+        <div class="basic-infos-inner">
+          <h2 class="name">{{ product.name }}</h2>
+          <span class="price">${{ product.price }}</span>
+          <span class="views"><strong>{{ product.views }}</strong> views</span>
+        </div>
+      </div>
+      <div class="tags">
+        <h4>Tags</h4>
+        <ul>{% for tag in product.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

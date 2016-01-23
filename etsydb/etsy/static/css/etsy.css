@@ -1,0 +1,178 @@
+body {
+	font-family: sans-serif;
+	background-color: #f5f5f1;
+	color: #333;
+}
+
+a:link, a:visited {
+    color: #0192b5;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.site-name, main {
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.site-name, .site-name a{
+    color: #f45800;
+    font-weight: 300;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.site-name a:hover {
+	text-decoration: none;
+}
+
+
+header {
+	border-bottom: 1px solid #E1E3DF;
+	background: white;
+}
+
+.main-card {
+	background: white;
+	margin: 28px auto 20px;
+	border: 1px solid #ececec;
+	border-bottom-color: #e2e2e2;
+	border-radius: 5px;
+	padding: 28px;
+	display: flex;
+}
+
+.col-left {
+	margin-right: 20px;
+	flex: 1.5;
+}
+.col-right {
+	flex: 1;
+}
+
+.gallery {
+	flex: 1;
+}
+
+.gallery img {
+	width: 100%;
+}
+
+.basic-infos {
+	border: 7px solid #E4F3D9;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+
+.name {
+	margin: 0;
+	margin-bottom: 20px;
+	font-weight: 500;
+	word-wrap: break-word;
+	font-size: 20px;
+	line-height: 26px;
+}
+
+.price {
+	font-size: 20px;
+	font-weight: bold;
+	display: block;
+}
+
+.description {
+	font-weight: 400;
+	word-wrap: break-word;
+	color: #666;
+	font-size: 14px;
+	line-height: 25px;
+}
+
+.tabs {
+	list-style: none;
+	border-bottom: 1px solid #DADBD6;
+	padding: 0 10px 0 40px;
+	margin: 20px 0 30px;
+	margin-top: 38px;
+	padding: 0 10px;
+	text-align: center;
+}
+
+.tabs li {
+	display: inline-block;
+	background-color: #F5F6F1;
+	border: 1px solid #DADBD6;
+	border-left: 0;
+	font-size: 13px;
+	padding: 8px 12px;
+	margin: 0 0 -1px;
+	color: #0192B5;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.tabs li.active {
+    font-size: 14px;
+    padding: 10px 12px;
+    line-height: 14px;
+    background-color: #fff;
+    border-bottom-color: #fff;
+    border-left: 1px solid #DADBD6;
+    color: #666666;
+}
+
+.tags li {
+	padding: 6px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    margin: 0 10px 10px 0;
+    display: inline-block;
+    color: #0192b5;
+    cursor: pointer;
+}
+
+.tags li:hover {
+    background-color: #d6edf3;
+    border-color: #cde3e9;
+}
+
+.tags ul {
+	padding:0;
+	margin: 0;
+}
+
+.tags {
+	border: 7px solid #EFEFEB;
+	padding: 10px;
+	margin-top: 20px;
+	border-radius: 5px;
+}
+
+.tags h4 {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+
+/* for list pages */
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-list li {
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+}
+
+.item-list li a {
+    margin-left: 10px;
+}

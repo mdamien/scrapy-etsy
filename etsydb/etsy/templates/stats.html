@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-card"><div>
+<h1>Stats</h1>
+{% include "_list.html" with list=by_reviews %}
+<hr>
+<h2>By views</h2>
+{% include "_list.html" with list=by_views %}
+<hr>
+<h2>By price</h2>
+{% include "_list.html" with list=by_price %}
+<hr>
+<h2>shops_by_nb</h2>
+<ul>
+{% for x in shops_by_nb %}
+	<li>{{x.count}} - {{x.shop}}</li>
+{% endfor %}
+</div></div>
+{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,12 @@
+<ul class="item-list">
+{% for x in list %}
+	<li>
+		{% for img in x.imgs %}
+			<img src="{{img}}" width=100/>
+		{% endfor %}
+		<a href="/item/{{ x.id }}">
+			{{x.name}}
+		</a>
+	</li>
+{% endfor %}
+</ul>
