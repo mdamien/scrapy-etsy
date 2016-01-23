@@ -31,7 +31,7 @@ for i, item in enumerate(streamload()):
 			tags=item['tags'],
 			description=item['description'])
 		to_insert.append(product)
-		if len(to_insert) > 10000:
+		if len(to_insert) > 500:
 			print(i,'=> commit')
 			Product.objects.bulk_create(to_insert)
 			to_insert = []

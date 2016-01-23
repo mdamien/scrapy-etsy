@@ -1,7 +1,7 @@
 import json
 
 def streamload():
-    for line in open('../data.jl'):
+    for line in open('../../data.jl'):
         try:
             yield enhance(json.loads(line))
         except Exception as e:
